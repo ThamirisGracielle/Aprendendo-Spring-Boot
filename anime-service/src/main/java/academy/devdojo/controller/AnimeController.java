@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -14,8 +15,9 @@ import java.util.List;
 public class AnimeController {
 
     @GetMapping
-    public List<String> listAll(){
+    public List<String> listAll() throws InterruptedException {
         log.info(Thread.currentThread().getName());
+        TimeUnit.SECONDS.sleep(1);
         return List.of("Ninja kamui", "Kaijuu-8gou");
     }
 }
