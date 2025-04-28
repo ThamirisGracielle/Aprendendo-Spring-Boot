@@ -23,7 +23,5 @@ public class Anime {
         var fairyTail = new Anime(2L, "Fairy Tail");
         var hunterHunter = new Anime(3L, "Hunter x Hunter");
         animes.addAll(List.of(naruto, fairyTail, hunterHunter));
-
     }
-
 }

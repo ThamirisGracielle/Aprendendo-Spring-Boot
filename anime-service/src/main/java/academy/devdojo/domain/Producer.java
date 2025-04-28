@@ -1,7 +1,6 @@
 package academy.devdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +27,5 @@ public class Producer {
         var kyotoAnimation = Producer.builder().id(2L).name ("Kyoto Animation").createadAt(LocalDateTime.now()).build();
         var madhouse = Producer.builder().id(3L).name ("MadHouse").createadAt(LocalDateTime.now()).build();
         producers.addAll(List.of(mappa, kyotoAnimation, madhouse));
-
     }
 }
