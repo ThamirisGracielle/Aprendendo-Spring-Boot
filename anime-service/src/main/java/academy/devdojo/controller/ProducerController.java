@@ -2,6 +2,9 @@ package academy.devdojo.controller;
 
 import academy.devdojo.domain.Anime;
 import academy.devdojo.domain.Producer;
+import academy.devdojo.mapper.ProducerMapper;
+import academy.devdojo.request.ProducerPostRequest;
+import academy.devdojo.response.ProducerGetResponse;
 import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,6 +24,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ProducerController {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(ProducerController.class);
+    private static final ProducerMapper MAPPER = ProducerMapper.INSTANCE;
 
     @GetMapping
     public List<Producer> listAll(@RequestParam(required = false) String name) {
@@ -29,7 +34,6 @@ public class ProducerController {
         return producers.stream().
                 filter(producer -> producer.getName()
                         .equalsIgnoreCase(name)).toList();
-
     }
 
     @GetMapping("{id}")
@@ -40,16 +44,14 @@ public class ProducerController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE, headers = "x-api-key=1234")
-    public ResponseEntity <Producer> save(@RequestBody Producer producer,  @RequestHeader HttpHeaders headers) {
+    public ResponseEntity <ProducerGetResponse> save(@RequestBody ProducerPostRequest producerPostRequest, @RequestHeader HttpHeaders headers) {
         log.info("{}", headers);
-        producer.setId(ThreadLocalRandom.current().nextLong(100_000));
+        var producer = MAPPER.toProducer(producerPostRequest);
+        var response = MAPPER.toProducerGetResponse(producer);
+
         Producer.getProducers().add(producer);
-        var responseHeadres = new HttpHeaders();
-        responseHeadres.add("Authorization", "May key");
 
-        return ResponseEntity.status(HttpStatus.CREATED).headers(responseHeadres)
-                .body(producer);
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
 
