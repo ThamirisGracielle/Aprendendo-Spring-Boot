@@ -4,11 +4,13 @@ import academy.devdojo.domain.Anime;
 import academy.devdojo.request.AnimePostRequest;
 import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.response.AnimePostResponse;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+@Mapper
 public interface AnimeMapper {
 
     AnimeMapper INSTANCE = Mappers.getMapper(AnimeMapper.class);
@@ -18,7 +20,7 @@ public interface AnimeMapper {
 
     AnimePostResponse toAnimePostResponse(Anime anime);
 
-    AnimeGetResponse toAnimeResponse (Anime anime);
+    AnimeGetResponse toAnimeResponse(Anime anime);
 
-    List<AnimeGetResponse> toAnimeGetRresponseList(List<Anime> animes);
+    List<AnimeGetResponse> toAnimeGetResponseList(List<Anime> animes);
 }
