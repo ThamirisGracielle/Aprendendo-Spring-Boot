@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class AnimePutRequest {
+public class ProducerPutRequest {
 
     private Long id;
     private String name;
