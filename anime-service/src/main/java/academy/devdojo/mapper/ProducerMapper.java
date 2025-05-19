@@ -1,7 +1,6 @@
 package academy.devdojo.mapper;
 
 import academy.devdojo.domain.Producer;
-import academy.devdojo.request.ProducerPostRequest;
 import academy.devdojo.response.ProducerGetResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,7 +17,8 @@ public interface ProducerMapper {
 
     @Mapping(target = "createadAt", expression = "java(LocalDateTime.now())")
     @Mapping(target = "id", expression = "java(ThreadLocalRandom.current().nextLong(100_000))")
-    Producer toProducer(ProducerPostRequest postRequest);
+    <ProducerPutRequest>
+    Producer toProducer(ProducerPutRequest postRequest);
 
     ProducerGetResponse toProducerGetResponse(Producer producer);
 
