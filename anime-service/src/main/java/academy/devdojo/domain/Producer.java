@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,9 +14,10 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Producer {
 
-    @EqualsAndHashCode.Exclude
     private Long id;
+
     @JsonProperty("full_name")
     private String name;
+
     private LocalDateTime createadAt;
 }
