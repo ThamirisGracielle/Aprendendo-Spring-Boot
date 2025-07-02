@@ -1,7 +1,10 @@
 package academy.devdojo.repository;
 
 import academy.devdojo.domain.Producer;
+import external.dependency.Connection;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
+@Log4j
 public class ProducerHardCodeRepository {
 
     @Getter
     private static final List<Producer> PRODUCERS = new ArrayList<>();
+    private final Connection connection;
 
     static {
 
@@ -33,6 +39,7 @@ public class ProducerHardCodeRepository {
     }
 
     public List<Producer> findByName(String name){
+        log.debug(connection);
         return PRODUCERS.stream().filter(producer -> producer.getName().equalsIgnoreCase(name)).toList();
     }
 
